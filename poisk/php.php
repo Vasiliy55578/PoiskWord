@@ -28,8 +28,8 @@ if(isset($_POST['name'])) {
 		}
 		return 'undef';
 	}
-	define('ROOT', dirname(__FILE__));	// размер папки poisk
-	$file = ROOT."/2_1.txt";	// находимся в папках где видим poisk по слешу перейдем выше где лежит файл 2_1.txt и передаем ROOT- это размер папки
+	define('ROOT', dirname(__FILE__));	
+	$file = ROOT."/2_1.txt";
 	include_once "index.php"; 
 	}		   
 ?>  
