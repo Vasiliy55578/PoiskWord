@@ -1,58 +1,35 @@
 <?  
-if(isset($_POST['name'])) {$namkey = $_POST['name'];	//введенное значение
+if(isset($_POST['name'])) {
+		$znach = $_POST['name'];	//введенный ключ
 
-		$section = file_get_contents('2_1.txt');	//получение данных с файла и занесение в переменную
-
-for( $i = 0; $i < strlen($section); $i++ ) {
-
-		if( $section[$i] == "=") {	
-			$name[$i] = ",";
-		}
-
-		if( $section[$i] !== "=") {
-			if( $section[$i] !== "[") {	
-				if(trim($section[$i])){ // убрать пробелы
-				$name[$i] =  $section[$i];
+	function Search ($file, $znach){	//функция поиска передаются две переменные, файл и ключ
+		$handle = fopen($file, "r");	
+		while (!feof($handle)) {		// пока корретка не достигнет конца файла
+			$string = fgets($handle);
+			mb_convert_encoding($string, 'cp1251');	
+			$explodedstring = explode('\x0A', $string);	// разбиваем на массив
+			array_pop($explodedstring);	// последний элемент пустой, он нам не нужен
+			foreach($explodedstring as $key => $value) {	// разбить массив на ключ и значение 
+				$arr[] = explode('\t', $value);	// explode - первый переданный параметр \t разбивает на массив
+			}
+			$start = 0;
+			$end = count($arr) - 1;
+			while ($start <= $end) {		//бинарный поиск
+				$middle = floor(($start + $end) / 2);	
+				$strnatcmp = strnatcmp($arr[$middle][0], $znach);
+				if ($strnatcmp > 0) {
+					$end = $middle - 1;
+				} else if ($strnatcmp < 0) {
+					$start = $middle + 1;
+				} else {
+					return $arr[$middle][1];
 				}
 			}
 		}
-
-	if( $section[$i] == "[") {
-		do {
-		$i++;
-		if( $section[$i] == "]" ){	// если элемент из массива равен ]
-		$section[$i] ='/';	// разделяем названия слешем
-		$Str[$i] = $section[$i];
-		break;	// если наткнулся на ] ломаем 
-		}else{
-			$Str[$i] = $section[$i];	// получаем строку с названиями в [ ]
-		}
-
-		} while ($section[$i] !== "]");
+		return 'undef';
 	}
-}
-
-$Str = implode($Str); // изменение массива символов в строку
-$array = explode('/', $Str);	// разбиение на массив по слешу, массив из того что в [ ]
-
-$name = implode($name); 
-$name = explode(',', $name); //разбиение на массив по запятой, получение массива имен
-
-$l1 = 0;
-$v = 0;
-// создание массива в паре ключ и значение - logo_part_1 => Mastering UI
-for( $k = 0; $k < count($name); $k++ ) {
-		if( $name[$k] == $namkey){	
-			$znach[$v] = $array[$k];
-			$v++;
-		}
-		elseif(( $name[$k] != $namkey)AND($l1 == 0)){	
-			$l1 = 1;
-			$znach[$k] ="undef";
-		}
-		
-	}
-
+	define('ROOT', dirname(__FILE__));	// размер папки poisk
+	$file = ROOT."/2_1.txt";	// находимся в папках где видим poisk по слешу перейдем выше где лежит файл 2_1.txt и передаем ROOT- это размер папки
 	include_once "index.php"; 
 	}		   
 ?>  

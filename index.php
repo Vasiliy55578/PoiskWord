@@ -8,7 +8,7 @@
 	<body>
 <br><br>
 <form action="php.php" method="POST">
-<h2>Введите Ключ: <input name="name" placeholder="Введите Ключ:" ></input> <button>Поиск</button></h2>
+<h2>Введите Ключ: <input name="name" placeholder="Введите Ключ:" value="<? if( isset($znach)){ echo $znach;}?>" ></input> <button>Поиск</button></h2>
 </form>
 	<br><br>
 	<div class="page">	
@@ -17,11 +17,11 @@
 		
 		<div class="logo" > 
 		<? 
-		if( $namkey != ""){	
-for( $k = 0; $k < count($znach); $k++ ) {
-	echo "<div class='logo1' >" .$namkey ."</div> " .$znach[$k]."<hr>";
+	if(( isset($znach) ) && ( $znach != '' )){
+	echo "<div class='logo1' >" .$znach ."</div> ";
+	echo Search($file, $znach)."<hr>";	// Вызываем функцию и передаем ей файл и ключ
 	}
-}
+	else echo "Как только вы введёте ключ, здесь отобразится результат...";
 	?>  
 </div>
 			</div>										
