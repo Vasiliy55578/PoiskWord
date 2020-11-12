@@ -1,5 +1,5 @@
 <?  
-if(isset($_POST['name'])) {$namkey = $_POST['name']; }	//введенное значение
+if(isset($_POST['name'])) {$namkey = $_POST['name'];	//введенное значение
 
 		$section = file_get_contents('2_1.txt');	//получение данных с файла и занесение в переменную
 
@@ -54,4 +54,5 @@ for( $k = 0; $k < count($name); $k++ ) {
 	}
 
 	include_once "index.php"; 
+	}		   
 ?>  
