@@ -1,11 +1,10 @@
 <? 		
 	if(isset($_POST['name'])) {
 		$znach = $_POST['name'];	// если POST установлен, заносим в переменную
+		define('ROOT', dirname(__FILE__));	
+		$file = ROOT."/2_1.txt";	
 	}
-	define('ROOT', dirname(__FILE__));	
-	$file = ROOT."/2_1.txt";
 ?>
-
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="ru">
 	<head>
@@ -22,8 +21,7 @@
 	<div class="page">	
 		<div class="header">
 			<div class="inner">		
-		
-		<div class="logo" > 
+				<div class="logo" > 
 		<? 
 	if(( isset($znach) ) && ( $znach != '' )){
 	echo "<div class='logo1' >" .$znach ."</div> ";
@@ -36,7 +34,6 @@
 		</div>
 	</div>	
 <?
-	
 	function Search ($file, $znach){	//функция поиска передаются две переменные, файл и ключ
 		$handle = fopen($file, "r");	
 		while (!feof($handle)) {		// пока корретка не достигнет конца файла
@@ -64,6 +61,5 @@
 		return 'undef';
 	}
 ?>
-
 	</body>
 </html>
