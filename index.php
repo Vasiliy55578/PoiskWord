@@ -17,9 +17,10 @@
 		
 		<div class="logo" > 
 		<? 
-		include_once 'php.php';
+		if( $namkey != ""){	
 for( $k = 0; $k < count($znach); $k++ ) {
 	echo "<div class='logo1' >" .$namkey ."</div> " .$znach[$k]."<hr>";
+	}
 }
 	?>  
 </div>
